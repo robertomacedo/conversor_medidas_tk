@@ -6,7 +6,7 @@ from PIL import ImageTk, Image
 # colors
 fundo = '#3b3b3b'
 cor_frame = '#ffffff'
-cor_font = '#48b3e0'
+cor_font = '#48b3e0'  # azul
 
 root = Tk()
 root.title('')
@@ -50,6 +50,55 @@ def mostrar_menu(i):
     c_para['values'] = unidade_para
 
     l_frame_d['text'] = i
+    
+    
+
+    def calcular():
+        # obter as unidades de medidas
+        a = c_de.get()
+        b = c_para.get()
+
+        num_a_ser_convertido = float(e_numero.get())
+
+        if unidade_para.index(a) <= unidade_de.index(b):
+
+            distancia = unidade_para.index(b) - unidade_de.index(a)
+            result = num_a_ser_convertido * (10 ** distancia)
+            l_resultado['text'] = result
+            
+
+        else:
+            distancia = unidade_de.index(a) - unidade_para.index(b)
+            result = num_a_ser_convertido * (10 ** distancia)
+            l_resultado['text'] = result
+
+        # divisão -------------------------------------------
+
+        if unidade_para.index(a) > unidade_de.index(b):
+
+            if unidade_de.index(a) <= unidade_para.index(b):
+
+                distancia = unidade_de.index(b) - unidade_para.index(a)
+                result = num_a_ser_convertido / (10 ** distancia)
+                l_resultado['text'] = result
+
+            else:
+                distancia = unidade_de.index(a) - unidade_para.index(b)
+                result = num_a_ser_convertido / (10 ** distancia)
+                l_resultado['text'] = result
+
+
+    l_info = Label(frame_d, text='Digite o número.', width=16, height=2, padx=5, pady=3, relief='flat', anchor='center', font=('Ivy 9 bold'), bg=cor_frame, fg=fundo)
+    l_info.place(x=0, y=110)
+
+    e_numero = Entry(frame_d, text='', width=9, font=('Ivy 11 bold'), justify=('center'), relief=SOLID)
+    e_numero.place(x=10, y=150)
+
+    b_calcular = Button(frame_d, text='Calcular', command=calcular, width=6, relief='raised', justify=('center'), font=('Ivy 8'), bg=cor_font)
+    b_calcular.place(x=118, y=150)
+
+    l_resultado = Label(frame_d, text='', width=15, height=2, padx=5, pady=3, relief='groove', anchor='center', font=('Ivy 13 bold'), bg=cor_frame, fg=fundo)
+    l_resultado.place(x=0, y=200)
 
 
 # ----------------------------------Config frames-------------------------------------
@@ -121,6 +170,9 @@ l_para = Label(frame_d, text='Para', height=1, padx=2, pady=3, relief='flat', an
 l_para.place(x=100, y=70)
 c_para = ttk.Combobox(frame_d, width=5, justify=('center'), font=('Ivy 8'))
 c_para.place(x=138, y=70)
+
+
+
 
 
 
